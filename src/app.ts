@@ -3,10 +3,12 @@ import CardController from './card/card.controller'
 import wrap from 'express-async-error-wrapper'
 import handleError from './middleware/errorHandler'
 import { CustomError } from './customError'
+import cors from 'cors'
 
 const app = express()
 const PORT = 3001
 app.use(express.json())
+app.use(cors())
 
 const cardController = new CardController()
 // test용 라우터
