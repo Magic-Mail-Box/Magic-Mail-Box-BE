@@ -3,6 +3,7 @@ import FsAnswerRepository from './answer/answer.repository';
 import domain from '../domain/card';
 import { evaluateCardReqDto, makeCardReqDto } from './card.dto';
 import { ICardService, ResCard } from './card.type';
+import { CustomError } from '../customError';
 const fsCardRepository = new FsCardRepository();
 const fsAnswerRepository = new FsAnswerRepository();
 
@@ -53,8 +54,7 @@ class CardService implements ICardService {
   public async evaluateCard(reqDto: evaluateCardReqDto): Promise<void> {
     const targetCard = await fsCardRepository.getCard(reqDto.cardId);
     if (targetCard.satisfaction !== undefined) {
-      const error = new Error('already evaluated');
-      throw error;
+      throw new CustomError('already evaluated', 500)
     }
 
     const satisfaction = reqDto.satisfaction;
