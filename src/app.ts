@@ -31,8 +31,10 @@ app.patch('/card/evaluate', wrap(cardController.evaluateCardController))
 
 app.use(handleError)
 
-app.listen(PORT, () => {
-	console.log(`App listening at PORT: ${PORT}`)
-})
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(PORT, () => {
+        console.log(`App listening at PORT: ${PORT}`)
+    })
+}
 
 export default app
